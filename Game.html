@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Who Wants to Be a Millionaire</title>
+  <style>
+    body {
+      background-color: rgb(159, 245, 248);  
+      font-family: Arial, sans-serif;
+    }
+    #game {
+      width: 80%;
+      margin: 40px auto;
+      text-align: center;
+    }
+    #question {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    #answers {
+      margin-bottom: 40px;
+    }
+    #answers button {
+      width: 45%;
+      height: 40px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgb(247, 248, 172);
+      color: black;
+      cursor: pointer;
+    }
+    #answers button:hover {
+      background-color: #3e8e41;
+    }
+    #result {
+      font-size: 24px;
+      font-weight: bold;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h1>Who Wants to Be a Millionaire</h1>
+    <div id="question"></div>
+    <div id="answers"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Game data
+    let questions = [
+      {
+        question: "What is the capital of France?",
+        answers: ["Paris", "London", "Berlin", "Rome"],
+        correct: 0
+      },
+      {
+        question: "What is the largest planet in our solar system?",
+        answers: ["Earth", "Saturn", "Jupiter", "Uranus"],
+        correct: 2
+      },
+      {
+        question: "Which of the following is not a primary color?",
+        answers: ["Red", "Blue", "Yellow", "Green"],
+        correct: 3
+      },
+      {
+        question: "What is the smallest country in the world?",
+        answers: ["Vatican City", "Monaco", "Nauru", "Tuvalu"],
+        correct: 0
+      },
+      {
+        question: "What is the largest living species of lizard?",
+        answers: ["Komodo dragon", "Saltwater crocodile", "Black mamba", "Green anaconda"],
+        correct: 0
+      },
+      {
+        question: "What is the largest living species of lizard?",
+        answers: ["Komodo dragon", "Saltwater crocodile", "Black mamba", "Green anaconda"],
+        correct: 0
+      }
+    ];
+
+    // Game variables
+    let currentQuestion = 0;
+    let score = 0;
+    let gameOver = false;
+
+    // Display question
+    function displayQuestion() {
+      if (gameOver) {
+        return;
+      }
+      let question = questions[currentQuestion];
+      document.getElementById("question").innerHTML = `Question ${currentQuestion + 1}: ${question.question}`;
+      let answersHTML = "";
+      for (let i = 0; i < question.answers.length; i++) {
+        answersHTML += `<button onclick="checkAnswer(${i})">${question.answers[i]}</button>`;
+      }
+      document.getElementById("answers").innerHTML = answersHTML;
+    }
+
+    // Check answer
+    function checkAnswer(answer) {
+      if (gameOver) {
+        return;
+      }
+      let question = questions[currentQuestion];
+      if (answer === question.correct) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion >= questions.length) {
+        gameOver = true;
+      }
+      displayResult();
+    }
+
+    // Display result
+    function displayResult() {
+      if (gameOver) {
+        document.getElementById("result").innerHTML = `Game over! Your final score is ${score} out of ${questions.length}`;
+        document.getElementById("answers").innerHTML = "";
+      } else {
+        displayQuestion();
+      }
+    }
+
+    // Start the game
+    displayQuestion();
+  </script>
+</body>
+</html>
